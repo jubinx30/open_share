@@ -30,6 +30,7 @@ const statsData = [
       icon: UsersIcon,
       value: "10K+",
       label: "Active Creators",
+      hasBorder: true,
     },
     {
       icon:EyeIcon,
