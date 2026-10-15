@@ -10,6 +10,7 @@ import {
     CardContent,
 } from "@/components/ui/card"
 
+
 import { Badge } from "@/components/ui/badge";
 import {StarIcon} from "lucide-react";
 import {ChevronUpIcon,ChevronDownIcon} from "lucide-react"
@@ -52,7 +53,10 @@ export default function ProductCard({product}:{
             <Button 
                 variant="ghost"
                 size="icon-sm"
-                className="h-8 w-8 text-primary hover:bg-primary/20"
+                className={cn("h-8 w-8 text-primary", 
+                hasVoted
+                ? "bg-primary/10 text-primary hover:bg-primary/20"
+                : "hover:bg-primary/10 hover:text-primary")}
                 >
                     <ChevronUpIcon className=" size-5 hover:bg-green-500" />
                 </Button>
