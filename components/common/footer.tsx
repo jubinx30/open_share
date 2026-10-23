@@ -4,5 +4,4 @@ export default function footer(){
         <div className="wrapper">iBuiltThis Inc. All rights reserved</div>
         </footer>
     )
-    
 }

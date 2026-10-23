@@ -5,6 +5,8 @@ import "./globals.css";
 import Header from "@/components/common/header"
 import Footer from "@/components/common/footer"
 
+import {ClerkProvider} from "@clerk/nextjs";
+
 const outfit = Outfit({subsets: ["latin"]});
 
 
@@ -16,7 +18,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
+    <ClerkProvider>
+      <html
     lang="en"
     className={`${outfit.className} antialiased`}
     >
@@ -26,5 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <Footer/>
       </body>
     </html>
+    </ClerkProvider>
+    
   );
 }

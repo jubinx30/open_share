@@ -1,5 +1,15 @@
-import { SparkleIcon,HomeIcon,CompassIcon, SparklesIcon, UserIcon } from "lucide-react";
+import { SparkleIcon, HomeIcon, CompassIcon, SparklesIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
+import {
+  SignInButton,
+  SignUpButton,
+  Show,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import {LoaderIcon} from "lucide-react";
 import Link from "next/link";
 
 const Logo = () => {
@@ -17,62 +27,64 @@ const Logo = () => {
 };
 
 export default function Header() {
-  const isSignedIn = true;
-  return <header className="sticky top-0 z-50 border-b bg-background/95
-  backdrop-blur supports-backdrop-filter:bg-background/60">
-        <div className="wrapper px-12">
-            <div className="flex h-16 items-center justify-between">
-                 <Logo />
+  return (
+    <header
+      className="sticky top-0 z-50 border-b bg-background/95
+  backdrop-blur supports-backdrop-filter:bg-background/60"
+    >
+      <div className="wrapper px-12">
+        <div className="flex h-16 items-center justify-between">
+          <Logo />
 
-                 <nav className="flex items-center gap-1">
-                    <Link href="/"
-                    className="flex items-center gap-2 px-3 py-2
+          <nav className="flex items-center gap-1">
+            <Link
+              href="/"
+              className="flex items-center gap-2 px-3 py-2
                     text-sm font-medium text-muted-foreground 
                     hover:text-foreground transition-colors hover:bg-muted/50"
-                    >
-                            <HomeIcon className="size-4" />
-                            <span>Home</span>
-                    </Link>
+            >
+              <HomeIcon className="size-4" />
+              <span>Home</span>
+            </Link>
 
-                     <Link href="/"
-                    className="flex items-center gap-2 px-3 py-2
+            <Link
+              href="/"
+              className="flex items-center gap-2 px-3 py-2
                     text-sm font-medium text-muted-foreground 
                     hover:text-foreground transition-colors hover:bg-muted/50"
-                    >
-                            <CompassIcon className="size-4" />
-                            <span>Explore</span>
-                    </Link>
-                  </nav>
-                    <div className = "flex items-center gap-3">
-                      {isSignedIn ? (
-                         <>
-                         <Button render = {<Link href="/submit"/>} >
-                         <SparklesIcon className="size-4" />
-                         Submit Project
-                         </Button>
-                         {/** Clerk User */}
-                         <Button variant={'ghost'}>userIcon
-                          <UserIcon className="size-4"/>
-                         </Button>
-                         </>
-                         
-                        
-                      ) : ( 
-                        <>
-                         <Button variant = "ghost">Sign In</Button>
-                        <Button>Sign Up</Button>
-                        </>
-                       
-                       )}
-                       
-
-                      
-                    </div>
-                 
-                 
+            >
+              <CompassIcon className="size-4" />
+              <span>Explore</span>
+            </Link>
+          </nav>
+          <div className="flex items-center gap-3">
+            <Suspense 
+            fallback = {
+            <div>
+              <LoaderIcon className="size-4 animate-spin" />
             </div>
-           
+            }>
+            <Show when="signed-out">
+              <SignInButton>
+                <Button variant="ghost">Sign In</Button>
+              </SignInButton>
+              <SignUpButton>
+                <Button>
+                  Sign Up
+                </Button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <Button render={<Link href="/submit" />}>
+                <SparklesIcon className="size-4" />
+                Submit Project
+              </Button>
+              <UserButton />
+            </Show>
+            </Suspense>
+          </div>
         </div>
-
-  </header>;
+      </div>
+    </header>
+  );
 }

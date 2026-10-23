@@ -57,7 +57,7 @@ export default function HeroSection() {
     <section
       className="relative overflow-hidden
     bg-linear-to-b from-background via-background
-    to-muted/20"
+    to-muted/30"
     >
       <div className="wrapper">
         <div
